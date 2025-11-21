@@ -15,7 +15,7 @@ from .utils import (fix_filename, new_filename, fix_varname,
                     uname, scut_ext, ico_ext, get_pyexe)
 
 from .gformat import gformat, fcompact
-from .debugtimer import debugtimer
+from .debugtimer import debugtimer, sleep
 
 make_shortcut =  get_folders = None
 if uname.startswith('lin'):
