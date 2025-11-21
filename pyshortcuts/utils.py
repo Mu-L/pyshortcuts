@@ -4,10 +4,11 @@ utilities for pyshortcuts
 """
 import os
 import sys
+import io
 from pathlib import Path
 from datetime import datetime
 from string import ascii_letters
-
+from charset_normalizer import from_bytes
 try:
     from pwd import getpwnam
 except ImportError:
@@ -200,3 +201,49 @@ def strict_ascii(sinp, replacement='_'):
     replacing characters will char(c) >=128 with 'replacement'"""
     t = bytes(sinp, 'UTF-8')
     return ''.join([chr(a) if a < 128 else replacement for a in t])
+
+def pathname(input):
+    """
+    return a full path name from Path().as_posix() given
+    a filename (str or byts) or Path object.
+    """
+    if isinstance(input, bytes):
+        input = str(from_bytes(input).best())
+    if isinstance(input, str):
+        input = Path(input)
+    if not isinstance(input, Path):
+        raise ValueError(f"cannot get Path name from {input}")
+    return input.absolute().as_posix()
+
+def read_textfile(filename, size=None):
+    """read text from a file as string
+
+    Argument
+    --------
+    filename  (str or file): name of file to read or file-like object
+    size  (int or None): maximum number of bytes to read
+
+    Returns
+    -------
+    text of file as string.
+
+    Notes
+    ------
+    1. the encoding is detected with charset_normalizer.from_bytes()
+       which is then used to decode bytes read from file.
+    2. line endings are normalized to be '\n', so that
+       splitting on '\n' will give a list of lines.
+    """
+    text = ''
+
+    def decode(bytedata):
+        return str(from_bytes(bytedata).best())
+
+    if isinstance(filename, io.IOBase):
+        text = filename.read(size)
+        if filename.mode == 'rb':
+            text = decode(text)
+    else:
+        with open(pathname(filename), 'rb') as fh:
+            text = decode(fh.read(size))
+    return text.replace('\r\n', '\n').replace('\r', '\n')
