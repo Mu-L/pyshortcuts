@@ -7,7 +7,7 @@ write_to = "pyshortcuts/version.py"
 version_scheme = "post-release"
 
 [tool.setuptools.packages.find]
-include = ["pyshortcuts"]
+include = ["pyshortcuts", "pyshortcuts.icons"]
 
 [tool.coverage.run]
 omit = ["tests/*"]
@@ -28,13 +28,13 @@ authors = [
 ]
 description = "Create desktop and Start Menu shortcuts for python scripts"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["desktop shortcuts", "python utilities"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",

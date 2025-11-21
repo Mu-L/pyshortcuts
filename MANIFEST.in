@@ -1,5 +1,5 @@
 include README.md LICENSE MANIFEST.in setup.py setup.cfg pyproject.toml
-include doc/pyshortcutgui_screenshot.png
+include doc/_static/pyshortcutgui_screenshot.png
 exclude *.pyc core.* *~ *.pdf
 recursive-exclude pyyshortcuts/__pycache__ *
 recursive-exclude pyshortcuts *.pyc
