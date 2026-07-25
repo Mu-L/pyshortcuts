@@ -35,7 +35,7 @@ try:
     import wx
     from .wxgui import ShortcutFrame
 except ImportError:
-    ShortCutFrame = None
+    ShortcutFrame = None
 
 
 def get_desktop():
